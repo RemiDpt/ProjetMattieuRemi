@@ -66,7 +66,7 @@ def decoupage(message, l):
 	n = len(message)
 	if n%l !=0:
 		message = message + (l - n%l)*"X" #padding avec des X
-	n = len(message)
+		n = n + l - n%l
 	Liste_message = []
 	a = 0
 	b = l
