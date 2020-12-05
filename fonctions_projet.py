@@ -74,3 +74,7 @@ def decoupage(message, l):
 	for i in range(q):
 		Liste_message.append(message[a+i*l : l+i*l])
 	return Liste_message
+
+def chiffrage(message, cle):
+	message = message.encode("utf-8")
+	nvmessage = int.from_bytes(message, byteorder ='big')
