@@ -68,11 +68,9 @@ def decoupage(message, l):
 		message = message + (l - n%l)*"X" #padding avec des X
 		n = n + l - n%l
 	Liste_message = []
-	a = 0
-	b = l
 	q = n//l
 	for i in range(q):
-		Liste_message.append(message[a+i*l : l+i*l])
+		Liste_message.append(message[i*l : l+i*l])
 	return Liste_message
 
 def chiffrage(message, cle):
