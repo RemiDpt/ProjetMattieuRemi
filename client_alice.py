@@ -4,7 +4,7 @@
 import socket, sys, os
 
 adresse_serveur = socket.gethostbyname('localhost')
-porc = 9999
+porc = 9997
 socquette = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 try:

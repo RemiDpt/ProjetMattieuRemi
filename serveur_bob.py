@@ -3,7 +3,7 @@
 import socket, sys, os
 
 adresse_ip = 'localhost'
-porc = 9999
+porc = 9997
 temps_attente = 15 #nombre de secondes d'attente de connexion 
 
 
@@ -12,11 +12,11 @@ socquette.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 socquette.bind((adresse_ip, porc)) 
 socquette.listen(temps_attente) #attente de connexion
 
+connexion, TSAP_depuis = socquette.accept()
 
 while True:
-	connexion, TSAP_depuis = socquette.accept()
+	input("Appuyer sur entrée pour accepter : \n")
 	print("Nouvelle connexion depuis : " , TSAP_depuis)
 	connexion.sendall(b'Yo le rap\n')
-	connexion.close()
-
+	#connexion.close()
 socquette.close()
