@@ -17,4 +17,10 @@ n=p*q
 phi_n=(p-1)*(q-1)
 
 mes = "turlututu chapeau pointu"
-print(decoupage(mes,7))
+print((decoupage(mes,7)))
+
+for i in range (len(decoupage(mes,7))):
+	print(chiffrage((decoupage(mes,7)[i]),n))
+	
+print(powmod(45,3,78))
+
