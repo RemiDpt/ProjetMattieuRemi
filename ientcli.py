@@ -13,12 +13,15 @@ except Exception as e:
 	print("On a un problème", e.args)
 	sys.exit(1)
 
-while True : 
-    message = input("Entrez un message à envoyer\n").encode("utf-8")
-    socquette.sendall(bytes(message))
-    data = socquette.recv(1024)
-    if not data:
-    	break
-    print(data, 'Reçu')
+a = True
+
+while a:
+	message = (input("Entrez un message à envoyer\n")).encode("utf-8")
+	socquette.sendall(bytes(message))
+	data = socquette.recv(1024)
+	if not data:
+		break
+	print(data, 'Reçu')
+	a = False
 
 socquette.close()
