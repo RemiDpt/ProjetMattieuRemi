@@ -20,7 +20,7 @@ def test_premier(n):
 			return False
 	return True
 
-def pgcd(a, b):
+def pgcd(a, b): #on a ainsi: x*a + b*y = gcd
 	x,y, u,v=0,1, 1,0
 	while a != 0:
 		q, r = b//a, b%a
@@ -78,7 +78,7 @@ def chiffrage(message,cle):
 	nvmessage = int.from_bytes(message, byteorder ='big')
 	return nvmessage
 	
-def powmod(x,n,m):
+def powmod(x,n,m): #calcule x**n mod m
 	nb=bin(n)
 	a=1
 	b=1
