@@ -78,11 +78,11 @@ def chiffrage(message,cle):
 	nvmessage = int.from_bytes(message, byteorder ='big')
 	return nvmessage
 	
-def powmod(x,n,m): #calcule x**n mod m
-	nb=bin(n)
+def powmod(x,y,m): #calcule x**y mod m
 	a=1
-	b=1
-	for i in range (len(nb)):
-		a=(a*(pow(x,b)))%m
-		b=2*b
+	while y>0:
+		if y&1>0:
+			a = (a*x) % m
+		y >>=1 
+		x = (x*x) % m
 	return a
