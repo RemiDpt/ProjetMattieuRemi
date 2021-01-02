@@ -31,18 +31,18 @@ while True:
 		if cle !="":
 			print ("la clé de Alice est n = ", na, "\n")
 			mes=str(nb).encode('utf-8')
-			connexion.sendall(bytes(mes))
+			connexion.send(bytes(mes))
 			cle=connexion.recv(1024)
 			cpt += 1
 	else:
 		M =(input("Saisissez votre message : \n"))
 		C=chiffrage(M,e,na)
-		connexion.sendall(bytes(C))
+		connexion.send(bytes(C))
 		reponse=connexion.recv(1024)
-		if reponse !="":
+		if reponse != "":
 			print(reponse)
 			print("Déchiffrage : \n")
-			print (dechiffrage(reponse,d,nb))
+			print(dechiffrage(reponse,d,nb))
 		
 	#connexion.close() # utile pour un seul échange
 

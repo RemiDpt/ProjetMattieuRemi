@@ -29,7 +29,7 @@ while True:
 	if cpt == 0:
 		print("Connexion...")
 		message = str(na).encode('utf-8')
-		socquette.sendall(bytes(message))
+		socquette.send(bytes(message))
 		cle = socquette.recv(1024)
 		if not cle:
 			break
@@ -39,14 +39,11 @@ while True:
 	else:
 		M =(input("Saisissez votre message : \n"))
 		C=chiffrage(M,e,nb)
-		socquette.sendall(bytes(C))
+		socquette.send(bytes(C))
 		reponse=socquette.recv(1024)
-		if not reponse:
-			break
-		print(reponse,"Reçu")
-		print("Déchiffrage :")
-		print (dechiffrage(reponse,d,na))
-		print("\n")
+		if reponse != '':
+			print(reponse,"Reçu\n")
+			print("Déchiffrage :", dechiffrage(reponse,d,na), "\n")
 	#message = (input("Entrez un message à envoyer\n")).encode("utf-8")
 	
 socquette.close()
