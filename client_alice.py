@@ -17,7 +17,7 @@ except Exception as e:
 
 p = nombre_premier(3)
 q = nombre_premier(4)
-n= p * q
+na= p * q
 phi_n = (p-1) * (q-1)
 e = 65537
 d = modinv(e, phi_n)
@@ -27,20 +27,26 @@ cpt = 0
 
 while True:
 	if cpt == 0:
-		message = str(n).encode('utf-8')
+		print("Connexion...")
+		message = str(na).encode('utf-8')
 		socquette.sendall(bytes(message))
-		chiffre = socquette.recv(1024)
-		if not chiffre:
+		cle = socquette.recv(1024)
+		if not cle:
 			break
-		print(chiffre, 'Reçu')
-		m = int.from_bytes(chiffre,byteorder='big')
-		print(m)
-		clair = powmod(m, d, n)
-		clair = clair.to_bytes(m.bit_length()//8+1, byteorder='big')
-		clair=clair.decode()
-		print(clair)
+		nb = int(cle)
+		print (cle,"la clé de Bob est n = ", nb, "\n")
 		cpt += 1
+	else:
+		M =(input("Saisissez votre message : \n"))
+		C=chiffrage(M,e,nb)
+		socquette.sendall(bytes(C))
+		reponse=socquette.recv(1024)
+		if not reponse:
+			break
+		print(reponse,"Reçu")
+		print("Déchiffrage :")
+		print (dechiffrage(reponse,d,na))
+		print("\n")
 	#message = (input("Entrez un message à envoyer\n")).encode("utf-8")
 	
-
 socquette.close()

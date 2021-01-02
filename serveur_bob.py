@@ -16,27 +16,34 @@ socquette.listen(temps_attente) #attente de connexion
 
 connexion, TSAP_depuis = socquette.accept()
 cpt = 0
+p = nombre_premier(3)
+q = nombre_premier(4)
+nb= p * q
+phi_n = (p-1) * (q-1)
+e = 65537
+d = modinv(e, phi_n)
+
 while True:
 	if cpt == 0:
 		print("Premiere connexion depuis : " , TSAP_depuis)
 		cle=connexion.recv(1024)
-		cle= cle.decode('utf-8')
+		na= int(cle.decode('utf-8'))
 		if cle !="":
-			n = int(cle)
-			print ("la clé est n = ", n, "\n")
-			M =input("Saisissez votre message : \n")
-			M=M.encode('utf-8')
-			C=int.from_bytes(M, byteorder='big')
-			C = powmod(C,e,n)
-			C=C.to_bytes(C.bit_length()//8 + 1, byteorder='big')
-			#C = str(C).encode('utf-8')
-			connexion.sendall(bytes(C))
+			print ("la clé de Alice est n = ", na, "\n")
+			mes=str(nb).encode('utf-8')
+			connexion.sendall(bytes(mes))
+			cle=connexion.recv(1024)
 			cpt += 1
-	#else:
-		#M =int(input("Saisissez votre message : \n"))
-		#C = powmod(M,e,n)
-		#C = C.encode('utf-8')
-		#connexion.sendall(C)
+	else:
+		M =(input("Saisissez votre message : \n"))
+		C=chiffrage(M,e,na)
+		connexion.sendall(bytes(C))
+		reponse=connexion.recv(1024)
+		if reponse !="":
+			print(reponse)
+			print("Déchiffrage : \n")
+			print (dechiffrage(reponse,d,nb))
+		
 	#connexion.close() # utile pour un seul échange
 
 

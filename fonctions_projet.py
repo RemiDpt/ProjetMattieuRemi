@@ -73,10 +73,19 @@ def decoupage(message, l):
 		Liste_message.append(message[i*l : l+i*l])
 	return Liste_message
 
-def chiffrage(message,cle):
-	message = message.encode("utf-8")
-	nvmessage = int.from_bytes(message, byteorder ='big')
-	return nvmessage
+def chiffrage(message,e,n):
+	M=message.encode('utf-8')
+	C=int.from_bytes(M, byteorder='big')
+	C = powmod(C,e,n)
+	C=C.to_bytes(C.bit_length()//8 + 1, byteorder='big')
+	return C
+
+def dechiffrage(chiffre,d,n):
+	m = int.from_bytes(chiffre,byteorder='big')
+	clair = powmod(m, d, n)
+	clair = clair.to_bytes(m.bit_length()//8+1, byteorder='big')
+	clair=clair.decode()
+	return clair
 	
 def powmod(x,y,m): #calcule x**y mod m
 	a=1
