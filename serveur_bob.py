@@ -22,7 +22,7 @@ nb= p * q
 phi_n = (p-1) * (q-1)
 e = 65537
 d = modinv(e, phi_n)
-
+truc=''
 while True:
 	if cpt == 0:
 		print("Premiere connexion depuis : " , TSAP_depuis)
@@ -31,18 +31,25 @@ while True:
 		if cle !="":
 			print ("la clé de Alice est n = ", na, "\n")
 			mes=str(nb).encode('utf-8')
-			connexion.send(bytes(mes))
+			connexion.sendall(bytes(mes))
 			cle=connexion.recv(1024)
 			cpt += 1
 	else:
+		truc=''
+		i=0
 		M =(input("Saisissez votre message : \n"))
-		C=chiffrage(M,e,na)
-		connexion.send(bytes(C))
-		reponse=connexion.recv(1024)
-		if reponse != "":
-			print(reponse)
-			print("Déchiffrage : \n")
-			print(dechiffrage(reponse,d,nb))
+		while (i) !=(len(decoupage(M,2))):
+			C=chiffrage(decoupage(M,2)[i],e,na)
+			connexion.sendall(bytes(C))
+			reponse=connexion.recv(1024)
+			if reponse !="":
+				#print(reponse)
+				truc=truc+dechiffrage(reponse,d,nb)
+			#print("Déchiffrage : \n")
+			#print (truc)
+			i=i+1
+		print("déchifehziuoidjziopjdkoz")
+		print(truc)
 		
 	#connexion.close() # utile pour un seul échange
 
