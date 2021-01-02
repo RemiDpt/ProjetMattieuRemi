@@ -24,9 +24,12 @@ while True:
 		if cle !="":
 			n = int(cle)
 			print ("la clé est n = ", n, "\n")
-			M =int(input("Saisissez votre message : \n"))
-			C = powmod(M,e,n)
-			C = str(C).encode('utf-8')
+			M =input("Saisissez votre message : \n")
+			M=M.encode('utf-8')
+			C=int.from_bytes(M, byteorder='big')
+			C = powmod(C,e,n)
+			C=C.to_bytes(C.bit_length()//8 + 1, byteorder='big')
+			#C = str(C).encode('utf-8')
 			connexion.sendall(bytes(C))
 			cpt += 1
 	#else:

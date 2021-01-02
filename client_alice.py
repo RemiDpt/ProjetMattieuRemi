@@ -33,9 +33,11 @@ while True:
 		if not chiffre:
 			break
 		print(chiffre, 'Reçu')
-		chiffre = int(chiffre.decode('utf-8'))
-		print(chiffre)
-		clair = powmod(chiffre, d, n)
+		m = int.from_bytes(chiffre,byteorder='big')
+		print(m)
+		clair = powmod(m, d, n)
+		clair = clair.to_bytes(m.bit_length()//8+1, byteorder='big')
+		clair=clair.decode()
 		print(clair)
 		cpt += 1
 	#message = (input("Entrez un message à envoyer\n")).encode("utf-8")
