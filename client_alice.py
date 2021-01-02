@@ -2,6 +2,7 @@
 
 
 import socket, sys, os
+from fonctions_projet import *
 
 adresse_serveur = socket.gethostbyname('localhost')
 porc = 9997
@@ -14,6 +15,7 @@ except Exception as e:
 	sys.exit(1)
 
 a = True
+n=nombre_premier(8)
 
 while a:
 	message = (input("Entrez un message à envoyer\n")).encode("utf-8")
@@ -22,6 +24,6 @@ while a:
 	if not data:
 		break
 	print(data, 'Reçu')
-	a = False
+	
 
 socquette.close()

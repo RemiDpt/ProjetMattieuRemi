@@ -15,8 +15,12 @@ socquette.listen(temps_attente) #attente de connexion
 connexion, TSAP_depuis = socquette.accept()
 
 while True:
-	input("Appuyer sur entrée pour accepter : \n")
+	truc=input("Appuyer sur entrée pour accepter : \n")
 	print("Nouvelle connexion depuis : " , TSAP_depuis)
-	connexion.sendall(b'Yo le rap\n')
+	truc=truc.encode('utf-8')
+	connexion.sendall(truc)
 	#connexion.close()
+	reponse=connexion.recv(255)
+	if reponse !="":
+		print (reponse)
 socquette.close()
