@@ -15,21 +15,27 @@ socquette.bind((adresse_ip, port))
 socquette.listen(temps_attente) #attente de connexion
 
 connexion, TSAP_depuis = socquette.accept()
+cpt  = 0
 
 while True:
-	print("Premiere connexion depuis : " , TSAP_depuis)
-	cle=connexion.recv(1024)
-	n= int(cle.decode('utf-8'))
-	if cle !="":
-		print ("la clé de Alice est n = ", n, "\n")
-		mes=str(n).encode('utf-8')
-		
-		M =(input("Saisissez votre message : \n"))
-		M=decoupage(M,3)
-		for i in range (len(M)):
-			connexion.sendall(bytes(M[i],"utf-8"))
-		
-	connexion.close() # utile pour un seul échange
+	if cpt == 0:		
+		print("Premiere connexion depuis : " , TSAP_depuis)
+		cle = connexion.recv(1024)
+		cle = cle.decode('utf-8')
+		if cle !="":
+			n = int(cle)
+			print ("la clé de Alice est n = ", n, "\n")		
+			M =(input("Saisissez votre message : \n"))
+			chiffre = nouv_chif(M,e,n)
+			connexion.send(chiffre)
+			cpt += 1
+			break
+		break
+connexion.close()
+
+
+
+#connexion.close() # utile pour un seul échange
 
 
 

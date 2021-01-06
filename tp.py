@@ -34,11 +34,12 @@ def nouv_dech(bitbit,d,n):
 		M[i] = int(M[i])
 		if (M[i]>=900):
 			M[i] -= 900 #on retrouve les valeurs initialement <100
+	print(M)
 	MesFin = (bytes(M)).decode('utf-8')
 	return MesFin
 
-message = "mon cochon marche au plafond"
-PO = decoupage(message,3)
+message = "tp de merde"
+PO = decoupage(message,2)
 
 P = bytes(message,'utf-8')
 O = []

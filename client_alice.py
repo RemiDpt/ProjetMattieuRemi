@@ -14,27 +14,30 @@ except Exception as e:
 	print("On a un problème", e.args)
 	sys.exit(1)
 
-
-p = nombre_premier(3)
-q = nombre_premier(4)
-n= p * q
+taille_min_premier  = 50
+p = nombre_premier(taille_min_premier)
+q = nombre_premier(taille_min_premier)
+n = p * q
 phi_n = (p-1) * (q-1)
 e = 65537
 d = modinv(e, phi_n)
 cpt = 0
-
-
+trad = []
 
 while True:
-	print("Connexion...")
-	message = str(n).encode('utf-8')
-	socquette.sendall(bytes(message))
-	data=socquette.recv(1024)
-	if not data:
-		break	
-	trad.append(nouv_dech(bytes(data,"utf-8"),d,n))
-	trad=[]
-	for j in range(len(mes)):
-		trad.append(nouv_dech(bytes(mes[j],"utf-8"),d,n))
+	if cpt == 0:
+		cle = str(n).encode('utf-8')
+		socquette.send(bytes(cle))
+		print("En attente d'un message ...")
+		data = socquette.recv(1024)
+		if not data:
+			break
+		print("Le chiffré est : ",data, "\n")
+		Mes = nouv_dech(data,d,n)
+		print("Le clair est : ",Mes,"\n")
+		cpt += 1
+		break
+	
+	
 	
 socquette.close()
