@@ -15,43 +15,21 @@ socquette.bind((adresse_ip, port))
 socquette.listen(temps_attente) #attente de connexion
 
 connexion, TSAP_depuis = socquette.accept()
-cpt = 0
-p = nombre_premier(3)
-q = nombre_premier(4)
-nb= p * q
-phi_n = (p-1) * (q-1)
-e = 65537
-d = modinv(e, phi_n)
-truc=''
+
 while True:
-	if cpt == 0:
-		print("Premiere connexion depuis : " , TSAP_depuis)
-		cle=connexion.recv(1024)
-		na= int(cle.decode('utf-8'))
-		if cle !="":
-			print ("la clé de Alice est n = ", na, "\n")
-			mes=str(nb).encode('utf-8')
-			connexion.sendall(bytes(mes))
-			cle=connexion.recv(1024)
-			cpt += 1
-	else:
-		truc=''
-		i=0
-		M =(input("Saisissez votre message : \n"))
-		while (i) !=(len(decoupage(M,2))):
-			C=chiffrage(decoupage(M,2)[i],e,na)
-			connexion.sendall(bytes(C))
-			reponse=connexion.recv(1024)
-			if reponse !="":
-				#print(reponse)
-				truc=truc+dechiffrage(reponse,d,nb)
-			#print("Déchiffrage : \n")
-			#print (truc)
-			i=i+1
-		print("déchifehziuoidjziopjdkoz")
-		print(truc)
+	print("Premiere connexion depuis : " , TSAP_depuis)
+	cle=connexion.recv(1024)
+	n= int(cle.decode('utf-8'))
+	if cle !="":
+		print ("la clé de Alice est n = ", n, "\n")
+		mes=str(n).encode('utf-8')
 		
-	#connexion.close() # utile pour un seul échange
+		M =(input("Saisissez votre message : \n"))
+		M=decoupage(M,3)
+		for i in range (len(M)):
+			connexion.sendall(bytes(M[i],"utf-8"))
+		
+	connexion.close() # utile pour un seul échange
 
 
 

@@ -73,19 +73,29 @@ def decoupage(message, l):
 		Liste_message.append(message[i*l : l+i*l])
 	return Liste_message
 
-def chiffrage(message,e,n):
-	M=message.encode('utf-8')
-	C=int.from_bytes(M, byteorder='big')
-	C = powmod(C,e,n)
-	C=C.to_bytes(C.bit_length()//8 + 1, byteorder='big')
-	return C
+def nouv_chif(chaine,e,n):
+	S = []
+	A = bytes(chaine,'utf-8')
+	for u in A:
+		S.append(u) #on place chaque octet de la chaine dans un tableau 
+	for i in range(len(S)):
+		if (S[i]<100):
+			S[i] +=900 #on place des repères pour les nombres plus petits que 100
+		S[i]=str(S[i]) #on concatène les éléments du tableau 
+	X = ''.join(S)
+	X = bytes(str(powmod(int(X),e,n)),'utf-8')
+	return X
 
-def dechiffrage(chiffre,d,n):
-	m = int.from_bytes(chiffre,byteorder='big')
-	clair = powmod(m, d, n)
-	clair = clair.to_bytes(m.bit_length()//8+1, byteorder='big')
-	clair=clair.decode('utf-8','ignore')
-	return clair
+def nouv_dech(bitbit,d,n):
+	X = int(bitbit.decode('utf-8'))
+	X = str(powmod(X,d,n))
+	M = decoupage(X,3) #on récupère toutes valeurs stockées lors du chiffrement
+	for i in range(len(M)):
+		M[i] = int(M[i])
+		if (M[i]>=900):
+			M[i] -= 900 #on retrouve les valeurs initialement <100
+	MesFin = (bytes(M)).decode('utf-8')
+	return MesFin
 	
 def powmod(x,y,m): #calcule x**y mod m
 	a=1
