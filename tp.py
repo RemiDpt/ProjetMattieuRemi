@@ -17,27 +17,23 @@ def nouv_chif(chaine,e,n):
 	S = []
 	A = bytes(chaine,'utf-8')
 	for u in A:
-		S.append(u)
+		S.append(u) #on place chaque octet de la chaine dans un tableau 
 	for i in range(len(S)):
 		if (S[i]<100):
-			S[i] +=900
-		S[i]=str(S[i])
-	print(S)
+			S[i] +=900 #on place des repères pour les nombres plus petits que 100
+		S[i]=str(S[i]) #on concatène les éléments du tableau 
 	X = ''.join(S)
-	print(X)
 	X = bytes(str(powmod(int(X),e,n)),'utf-8')
 	return X
 
 def nouv_dech(bitbit,d,n):
 	X = int(bitbit.decode('utf-8'))
 	X = str(powmod(X,d,n))
-	print(X)
-	M = decoupage(X,3)
-	print(M)
+	M = decoupage(X,3) #on récupère toutes valeurs stockées lors du chiffrement
 	for i in range(len(M)):
 		M[i] = int(M[i])
 		if (M[i]>=900):
-			M[i] -= 900
+			M[i] -= 900 #on retrouve les valeurs initialement <100
 	MesFin = (bytes(M)).decode('utf-8')
 	return MesFin
 
