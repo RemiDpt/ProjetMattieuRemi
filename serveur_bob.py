@@ -24,7 +24,7 @@ while True:
 		cle = cle.decode('utf-8')
 		if cle !="":
 			n = int(cle)
-			print ("la clé de Alice est n = ", n, "\n")		
+			print ("la clé d'Alice est n = ", n, "\n")		
 			M =(input("Saisissez votre message : \n"))
 			chiffre = nouv_chif(M,e,n)
 			connexion.send(chiffre)
