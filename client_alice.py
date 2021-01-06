@@ -15,7 +15,9 @@ except Exception as e:
 	sys.exit(1)
 
 taille_min_premier  = 50
+
 print("Génération des clefs en cours ...\n")
+
 t1 = time.time()
 p = nombre_premier(taille_min_premier)
 q = nombre_premier(taille_min_premier)
@@ -24,6 +26,7 @@ phi_n = (p-1) * (q-1)
 e = 65537
 d = modinv(e, phi_n)
 t2 = time.time()
+
 print("Clefs générées en ", t2-t1, " secondes. \n")
 cpt = 0
 

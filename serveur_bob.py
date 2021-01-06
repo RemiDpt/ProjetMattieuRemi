@@ -34,22 +34,4 @@ while True:
 connexion.close()
 
 
-
-#connexion.close() # utile pour un seul échange
-
-
-
-
-
-
-	#print("Premiere depuis : " , TSAP_depuis)
-	#reponse=connexion.recv(1024)
-	#reponse= reponse.decode('utf-8')
-	#if reponse !="":
-	#	n = int(reponse)
-	#	print (reponse)
-	#message=input("Saisissez votre réponse : \n")
-	#message=message.encode('utf-8')
-	#connexion.sendall(message)
-	#connexion.close() # utile pour un seul échange
 socquette.close()
